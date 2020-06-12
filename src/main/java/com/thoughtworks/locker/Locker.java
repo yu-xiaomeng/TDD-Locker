@@ -1,3 +1,5 @@
+package com.thoughtworks.locker;
+
 import java.util.UUID;
 
 public class Locker {
