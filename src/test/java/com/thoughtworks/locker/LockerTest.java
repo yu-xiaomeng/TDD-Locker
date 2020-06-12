@@ -50,7 +50,7 @@ public class LockerTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void should_check_out_failed_when_check_out_given_ticket_is_invalid() {
+    public void should_check_out_failed_when_check_out_given_ticket_is_invalid_or_duplicate() {
         // Given
         Locker locker = new Locker();
         String ticket = "123";
