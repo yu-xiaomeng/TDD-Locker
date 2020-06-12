@@ -15,4 +15,8 @@ public class Locker {
     public void setFull(boolean full) {
         this.full = full;
     }
+
+    public boolean checkOut(String ticket) {
+        return true;
+    }
 }

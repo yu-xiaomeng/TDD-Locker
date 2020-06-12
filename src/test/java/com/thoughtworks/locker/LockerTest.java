@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.UUID;
+
 public class LockerTest {
     @Test
     public void should_check_in_successful_and_get_a_ticket_when_check_in_given_locker_is_not_full() {
@@ -32,6 +34,20 @@ public class LockerTest {
             Assert.assertEquals("储物柜已满", e.getMessage());
             throw e;
         }
+
+    }
+
+    @Test
+    public void should_check_out_successful_when_check_out_given_ticket_is_valid() {
+        // Given
+        Locker locker = new Locker();
+        String ticket = UUID.randomUUID().toString();
+
+        // When
+        boolean checkOutSuccessful = locker.checkOut(ticket);
+
+        // Then
+        Assert.assertTrue(checkOutSuccessful);
 
     }
 
