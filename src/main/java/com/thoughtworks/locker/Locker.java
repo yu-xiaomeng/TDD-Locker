@@ -7,10 +7,12 @@ import java.util.UUID;
 public class Locker {
     private boolean full;
     private List<String> tickets = new ArrayList<>();
+    private String lockerIsFull = "储物柜已满";
+    private String ticketIsInvalid = "非法票据";
 
     public String checkIn() {
         if (full) {
-            throw new RuntimeException("储物柜已满");
+            throw new RuntimeException(lockerIsFull);
         }
         String ticket = UUID.randomUUID().toString();
         tickets.add(ticket);
@@ -23,7 +25,7 @@ public class Locker {
 
     public boolean checkOut(String ticket) {
         if (tickets.indexOf(ticket) < 0) {
-            throw new RuntimeException("非法票据");
+            throw new RuntimeException(ticketIsInvalid);
         }
         tickets.remove(ticket);
         return true;
