@@ -3,24 +3,26 @@ package com.thoughtworks.locker;
 import java.util.HashMap;
 
 public class Locker {
-    private int capacity;
+    private final int capacity;
+    private int availableCapacity;
     private HashMap<Ticket, Bag> tickets = new HashMap<>();
     private String lockerIsFull = "储物柜已满";
     private String ticketIsInvalid = "非法票据";
 
     public Locker(int capacity) {
         this.capacity = capacity;
+        this.availableCapacity = capacity;
     }
 
     public Ticket checkIn(Bag bag) {
-        if (capacity == 0) {
+        if (availableCapacity == 0) {
             throw new RuntimeException(lockerIsFull);
         }
 
         Ticket ticket = new Ticket();
         tickets.put(ticket, bag);
 
-        capacity = capacity - 1;
+        availableCapacity = availableCapacity - 1;
 
         return ticket;
     }
