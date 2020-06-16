@@ -18,4 +18,19 @@ public class PrimaryLockerRobotTest {
         Assert.assertSame(checkOutBag, myBag);
         Assert.assertNotNull(ticket);
     }
+
+    @Test
+    public void should_check_in_success_in_second_locker_and_get_a_ticket_when_check_in_given_robot_manage_two_lockers_with_first_locker_is_full_second_locker_have_available_capacity() {
+        Locker firstLocker = new Locker(1);
+        Locker secondLocker = new Locker(5);
+        PrimaryLockerRobot robot = new PrimaryLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        robot.checkIn(new Bag());
+        Bag myBag = new Bag();
+
+        Ticket ticket = robot.checkIn(myBag);
+
+        Bag checkOutBag = secondLocker.checkOut(ticket);
+        Assert.assertSame(checkOutBag, myBag);
+        Assert.assertNotNull(ticket);
+    }
 }
