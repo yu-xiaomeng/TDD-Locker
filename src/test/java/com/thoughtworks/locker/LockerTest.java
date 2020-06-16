@@ -1,6 +1,5 @@
 package com.thoughtworks.locker;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -8,25 +7,25 @@ public class LockerTest {
     @Test
     public void should_check_in_successful_and_get_a_ticket_when_check_in_given_locker_is_not_full() {
         // Given
-        Locker locker = new Locker();
+        Locker locker = new Locker(10);
 
         // When
-        String ticket = locker.checkIn();
+        Ticket ticket = locker.checkIn(new Bag());
 
         // Then
-        Assertions.assertThat(ticket).isNotNull();
+        Assert.assertNotNull(ticket);
 
     }
 
     @Test(expected = RuntimeException.class)
     public void should_check_in_failed_when_check_in_given_locker_is_full() {
         // Given
-        Locker locker = new Locker();
-        locker.setFull(true);
+        Locker locker = new Locker(1);
+        locker.checkIn(new Bag());
 
         // When
         try {
-            String ticket = locker.checkIn();
+            locker.checkIn(new Bag());
         } catch (Exception e) {
             // Then
             Assert.assertEquals("储物柜已满", e.getMessage());
@@ -38,26 +37,27 @@ public class LockerTest {
     @Test
     public void should_check_out_successful_when_check_out_given_ticket_is_valid() {
         // Given
-        Locker locker = new Locker();
-        String ticket = locker.checkIn();
+        Locker locker = new Locker(10);
+        Bag checkInBag = new Bag();
+        Ticket ticket = locker.checkIn(checkInBag);
 
         // When
-        boolean checkOutSuccessful = locker.checkOut(ticket);
+        Bag checkOutBag = locker.checkOut(ticket);
 
         // Then
-        Assert.assertTrue(checkOutSuccessful);
+        Assert.assertSame(checkOutBag, checkInBag);
 
     }
 
     @Test(expected = RuntimeException.class)
     public void should_check_out_failed_when_check_out_given_ticket_is_invalid_or_duplicate() {
         // Given
-        Locker locker = new Locker();
-        String ticket = "123";
+        Locker locker = new Locker(10);
+        Ticket ticket = new Ticket();
 
         // When
         try {
-            boolean checkOutSuccessful = locker.checkOut(ticket);
+            locker.checkOut(ticket);
         } catch (Exception e) {
             // Then
             Assert.assertEquals("非法票据", e.getMessage());

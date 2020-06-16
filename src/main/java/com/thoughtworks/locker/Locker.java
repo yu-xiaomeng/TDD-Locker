@@ -1,33 +1,36 @@
 package com.thoughtworks.locker;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.HashMap;
 
 public class Locker {
-    private boolean full;
-    private List<String> tickets = new ArrayList<>();
+    private int capacity;
+    private HashMap<Ticket, Bag> tickets = new HashMap<>();
     private String lockerIsFull = "储物柜已满";
     private String ticketIsInvalid = "非法票据";
 
-    public String checkIn() {
-        if (full) {
+    public Locker(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public Ticket checkIn(Bag bag) {
+        if (capacity == 0) {
             throw new RuntimeException(lockerIsFull);
         }
-        String ticket = UUID.randomUUID().toString();
-        tickets.add(ticket);
+
+        Ticket ticket = new Ticket();
+        tickets.put(ticket, bag);
+
+        capacity = capacity - 1;
+
         return ticket;
     }
 
-    public void setFull(boolean full) {
-        this.full = full;
-    }
-
-    public boolean checkOut(String ticket) {
-        if (tickets.indexOf(ticket) < 0) {
+    public Bag checkOut(Ticket ticket) {
+        Bag bag = tickets.get(ticket);
+        if (bag == null) {
             throw new RuntimeException(ticketIsInvalid);
         }
         tickets.remove(ticket);
-        return true;
+        return bag;
     }
 }
