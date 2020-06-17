@@ -18,4 +18,9 @@ public class PrimaryLockerRobot {
         }
         throw new RuntimeException(lockerIsFull);
     }
+
+    public Bag checkOut(Ticket ticket) {
+        return lockers.get(0).checkOut(ticket);
+    }
+
 }

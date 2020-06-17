@@ -49,4 +49,15 @@ public class PrimaryLockerRobotTest {
             throw e;
         }
     }
+
+    @Test
+    public void should_check_out_success_when_check_out_given_robot_manage_two_lockers_and_a_valid_ticket() {
+        PrimaryLockerRobot robot = new PrimaryLockerRobot(Arrays.asList(new Locker(10), new Locker(5)));
+        Bag myBag = new Bag();
+        Ticket ticket = robot.checkIn(myBag);
+
+        Bag checkoutBag = robot.checkOut(ticket);
+
+        Assert.assertSame(checkoutBag, myBag);
+    }
 }
