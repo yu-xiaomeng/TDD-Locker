@@ -33,4 +33,20 @@ public class PrimaryLockerRobotTest {
         Assert.assertSame(checkOutBag, myBag);
         Assert.assertNotNull(ticket);
     }
+
+    @Test(expected = RuntimeException.class)
+    public void should_check_in_failed_when_check_in_given_robot_manage_two_lockers_with_no_available_capacity() {
+        Locker firstLocker = new Locker(1);
+        Locker secondLocker = new Locker(1);
+        PrimaryLockerRobot robot = new PrimaryLockerRobot(Arrays.asList(firstLocker, secondLocker));
+        robot.checkIn(new Bag());
+        robot.checkIn(new Bag());
+
+        try {
+            robot.checkIn(new Bag());
+        } catch (Exception e) {
+            Assert.assertEquals("储物柜已满", e.getMessage());
+            throw e;
+        }
+    }
 }

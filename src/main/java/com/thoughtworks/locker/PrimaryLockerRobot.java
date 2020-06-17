@@ -12,12 +12,10 @@ public class PrimaryLockerRobot {
 
     public Ticket checkIn(Bag bag) {
         for (Locker locker:lockers) {
-            try {
+            if (locker.getAvailableCapacity() > 0) {
                 return locker.checkIn(bag);
-            } catch (Exception e) {
-                continue;
             }
         }
-        return null;
+        throw new RuntimeException(lockerIsFull);
     }
 }
