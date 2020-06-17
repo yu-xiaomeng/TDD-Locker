@@ -20,12 +20,14 @@ public class Ticket {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Ticket)) {
+            return false;
+        }
+
         if (obj == this) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
+
         return this.getTicketNum().equals(((Ticket) obj).getTicketNum());
     }
 }

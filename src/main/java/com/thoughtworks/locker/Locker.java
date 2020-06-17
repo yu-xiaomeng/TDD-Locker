@@ -6,10 +6,11 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Locker {
-    private AtomicInteger availableCapacity;
-    private HashMap<Ticket, Bag> tickets = new HashMap<>();
+    private final AtomicInteger availableCapacity;
+    private final HashMap<Ticket, Bag> tickets;
 
     public Locker(int capacity) {
+        tickets = new HashMap<>(capacity);
         this.availableCapacity = new AtomicInteger(capacity);
     }
 
@@ -18,7 +19,7 @@ public class Locker {
         if (available == 0) {
             throw new RuntimeException(Messages.LOCKER_IS_FULL);
         }
-        availableCapacity.compareAndSet(available, available - 1);
+        availableCapacity.decrementAndGet();
         Ticket ticket = new Ticket();
         tickets.put(ticket, bag);
 
@@ -29,7 +30,7 @@ public class Locker {
         Bag bag = tickets.get(ticket);
         if (bag != null) {
             tickets.remove(ticket);
-            availableCapacity.getAndAdd(1);
+            availableCapacity.incrementAndGet();
         }
         return bag;
     }
