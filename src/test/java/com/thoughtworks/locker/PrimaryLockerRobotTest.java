@@ -60,4 +60,18 @@ public class PrimaryLockerRobotTest {
 
         Assert.assertSame(checkoutBag, myBag);
     }
+
+    @Test(expected = RuntimeException.class)
+    public void should_check_out_failed_when_check_out_given_robot_manage_two_lockers_and_an_invalid_ticket() {
+        PrimaryLockerRobot robot = new PrimaryLockerRobot(Arrays.asList(new Locker(10), new Locker(5)));
+        Ticket ticket = new Ticket();
+
+        try {
+            robot.checkOut(ticket);
+        } catch (Exception e) {
+            Assert.assertEquals("非法票据", e.getMessage());
+            throw e;
+        }
+
+    }
 }

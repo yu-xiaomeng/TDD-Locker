@@ -5,6 +5,7 @@ import java.util.List;
 public class PrimaryLockerRobot {
     private final List<Locker> lockers;
     private String lockerIsFull = "储物柜已满";
+    private String ticketIsInvalid = "非法票据";
 
     public PrimaryLockerRobot(List<Locker> lockers) {
         this.lockers = lockers;
@@ -20,7 +21,14 @@ public class PrimaryLockerRobot {
     }
 
     public Bag checkOut(Ticket ticket) {
-        return lockers.get(0).checkOut(ticket);
+        for (Locker locker:lockers) {
+            try {
+               return locker.checkOut(ticket);
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        throw new RuntimeException(ticketIsInvalid);
     }
 
 }
