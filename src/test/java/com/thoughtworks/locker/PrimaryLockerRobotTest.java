@@ -14,9 +14,9 @@ public class PrimaryLockerRobotTest {
 
         Ticket ticket = robot.checkIn(myBag);
 
+        Assert.assertNotNull(ticket);
         Bag checkOutBag = firstLocker.checkOut(ticket);
         Assert.assertSame(checkOutBag, myBag);
-        Assert.assertNotNull(ticket);
     }
 
     @Test
@@ -29,9 +29,9 @@ public class PrimaryLockerRobotTest {
 
         Ticket ticket = robot.checkIn(myBag);
 
+        Assert.assertNotNull(ticket);
         Bag checkOutBag = secondLocker.checkOut(ticket);
         Assert.assertSame(checkOutBag, myBag);
-        Assert.assertNotNull(ticket);
     }
 
     @Test(expected = RuntimeException.class)
