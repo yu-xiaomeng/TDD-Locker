@@ -15,6 +15,24 @@ public class SmartLockerRobot {
 
     public Ticket checkIn(Bag bag) {
         assert (null != lockers);
+        Locker selectedLocker = this.selectValidLocker();
+        if (null == selectedLocker) {
+            throw new LockerFullException();
+        }
+        return selectedLocker.checkIn(bag);
+    }
+
+    public Bag checkOut(Ticket ticket) {
+        for (Locker locker : lockers) {
+            Bag checkoutBag = locker.checkOut(ticket);
+            if (checkoutBag != null) {
+                return checkoutBag;
+            }
+        }
+        throw new TicketInvalidException();
+    }
+
+    private Locker selectValidLocker() {
         Locker selectedLocker = null;
         for (Locker locker : lockers) {
             if (locker.isFull()) {
@@ -27,19 +45,6 @@ public class SmartLockerRobot {
                         ? locker : selectedLocker;
             }
         }
-        if (null == selectedLocker) {
-            throw new LockerFullException();
-        }
-        return selectedLocker.checkIn(bag);
-    }
-
-    public Bag checkout(Ticket ticket) {
-        for (Locker locker : lockers) {
-            Bag checkoutBag = locker.checkOut(ticket);
-            if (checkoutBag != null) {
-                return checkoutBag;
-            }
-        }
-        throw new TicketInvalidException();
+        return selectedLocker;
     }
 }

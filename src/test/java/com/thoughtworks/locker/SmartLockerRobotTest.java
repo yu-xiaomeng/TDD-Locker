@@ -67,7 +67,7 @@ public class SmartLockerRobotTest {
         Bag bag = new Bag();
         Ticket ticket = smartLockerRobot.checkIn(bag);
 
-        Bag checkoutBag = smartLockerRobot.checkout(ticket);
+        Bag checkoutBag = smartLockerRobot.checkOut(ticket);
 
         Assert.assertNotNull(checkoutBag);
         Assert.assertEquals(bag, checkoutBag);
@@ -79,7 +79,7 @@ public class SmartLockerRobotTest {
         Locker locker2 = new Locker(1);
         SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(locker1, locker2));
 
-        smartLockerRobot.checkout(new Ticket());
+        smartLockerRobot.checkOut(new Ticket());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class SmartLockerRobotTest {
         Bag bag = new Bag();
         Ticket ticket = primaryLockerRobot.checkIn(bag);
 
-        Bag checkoutBag = smartLockerRobot.checkout(ticket);
+        Bag checkoutBag = smartLockerRobot.checkOut(ticket);
 
         Assert.assertNotNull(checkoutBag);
         Assert.assertEquals(bag, checkoutBag);
