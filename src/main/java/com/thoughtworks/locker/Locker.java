@@ -38,4 +38,8 @@ public class Locker {
     public int getAvailableCapacity() {
         return availableCapacity.get();
     }
+
+    public boolean isFull() {
+        return availableCapacity.get() == 0;
+    }
 }

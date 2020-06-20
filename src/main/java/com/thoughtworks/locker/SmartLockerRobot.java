@@ -1,6 +1,5 @@
 package com.thoughtworks.locker;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SmartLockerRobot {
@@ -13,6 +12,15 @@ public class SmartLockerRobot {
 
     public Ticket checkIn(Bag bag) {
         assert (null != lockers);
-        return lockers.get(0).checkIn(bag);
+        Locker selectedLocker = null;
+        for (Locker locker : lockers) {
+            if (selectedLocker == null) {
+                selectedLocker = locker;
+            } else {
+                selectedLocker = selectedLocker.getAvailableCapacity() < locker.getAvailableCapacity()
+                        ? locker : selectedLocker;
+            }
+        }
+        return selectedLocker.checkIn(bag);
     }
 }
