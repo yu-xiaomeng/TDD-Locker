@@ -1,6 +1,6 @@
 package com.thoughtworks.locker;
 
-import com.thoughtworks.locker.constant.Messages;
+import com.thoughtworks.locker.exception.LockerFullException;
 
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,7 +17,7 @@ public class Locker {
     public Ticket checkIn(Bag bag) {
         int available = availableCapacity.get();
         if (available == 0) {
-            throw new RuntimeException(Messages.LOCKER_IS_FULL);
+            throw new LockerFullException();
         }
         availableCapacity.decrementAndGet();
         Ticket ticket = new Ticket();

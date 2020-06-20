@@ -1,6 +1,7 @@
 package com.thoughtworks.locker;
 
-import com.thoughtworks.locker.constant.Messages;
+import com.thoughtworks.locker.exception.LockerFullException;
+import com.thoughtworks.locker.exception.TicketInvalidException;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class PrimaryLockerRobot {
                 return locker.checkIn(bag);
             }
         }
-        throw new RuntimeException(Messages.LOCKER_IS_FULL);
+        throw new LockerFullException();
     }
 
     public Bag checkOut(Ticket ticket) {
@@ -27,7 +28,7 @@ public class PrimaryLockerRobot {
                 return bag;
             }
         }
-        throw new RuntimeException(Messages.TICKET_IS_INVALID);
+        throw new TicketInvalidException();
     }
 
 }
