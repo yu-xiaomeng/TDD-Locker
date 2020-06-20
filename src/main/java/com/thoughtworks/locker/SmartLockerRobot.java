@@ -1,6 +1,7 @@
 package com.thoughtworks.locker;
 
 import com.thoughtworks.locker.exception.LockerFullException;
+import com.thoughtworks.locker.exception.TicketInvalidException;
 
 import java.util.List;
 
@@ -39,6 +40,6 @@ public class SmartLockerRobot {
                 return checkoutBag;
             }
         }
-        return null;
+        throw new TicketInvalidException();
     }
 }
