@@ -1,5 +1,6 @@
 package com.thoughtworks.locker;
 
+import com.thoughtworks.locker.exception.LockerFullException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -44,5 +45,16 @@ public class SmartLockerRobotTest {
 
         Assert.assertNotNull(ticket);
         Assert.assertEquals(bag, locker1.checkOut(ticket));
+    }
+
+    @Test(expected = LockerFullException.class)
+    public void should_check_in_fail_when_smart_robot_check_in_given_locker1_and_locker2_is_full() {
+        Locker locker1 = new Locker(1);
+        Locker locker2 = new Locker(1);
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(locker1, locker2));
+        smartLockerRobot.checkIn(new Bag());
+        smartLockerRobot.checkIn(new Bag());
+
+        smartLockerRobot.checkIn(new Bag());
     }
 }
