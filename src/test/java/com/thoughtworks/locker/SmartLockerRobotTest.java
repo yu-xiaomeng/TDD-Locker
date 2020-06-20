@@ -57,4 +57,18 @@ public class SmartLockerRobotTest {
 
         smartLockerRobot.checkIn(new Bag());
     }
+
+    @Test
+    public void should_checkout_success_when_smart_robot_checkout_given_valid_ticket() {
+        Locker locker1 = new Locker(1);
+        Locker locker2 = new Locker(1);
+        SmartLockerRobot smartLockerRobot = new SmartLockerRobot(Arrays.asList(locker1, locker2));
+        Bag bag = new Bag();
+        Ticket ticket = smartLockerRobot.checkIn(bag);
+
+        Bag checkoutBag = smartLockerRobot.checkout(ticket);
+
+        Assert.assertNotNull(checkoutBag);
+        Assert.assertEquals(bag, checkoutBag);
+    }
 }

@@ -31,4 +31,14 @@ public class SmartLockerRobot {
         }
         return selectedLocker.checkIn(bag);
     }
+
+    public Bag checkout(Ticket ticket) {
+        for (Locker locker : lockers) {
+            Bag checkoutBag = locker.checkOut(ticket);
+            if (checkoutBag != null) {
+                return checkoutBag;
+            }
+        }
+        return null;
+    }
 }
