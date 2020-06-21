@@ -1,40 +1,17 @@
 package com.thoughtworks.locker;
 
-import com.thoughtworks.locker.exception.LockerFullException;
-import com.thoughtworks.locker.exception.TicketInvalidException;
-
 import java.util.List;
 
-public class SmartLockerRobot {
-
-    private final List<Locker> lockers;
+public class SmartLockerRobot extends AbstractLockerRobot {
 
     public SmartLockerRobot(List<Locker> lockers) {
-        this.lockers = lockers;
+        super(lockers);
     }
 
-    public Ticket checkIn(Bag bag) {
-        assert (null != lockers);
-        Locker selectedLocker = this.selectValidLocker();
-        if (null == selectedLocker) {
-            throw new LockerFullException();
-        }
-        return selectedLocker.checkIn(bag);
-    }
-
-    public Bag checkOut(Ticket ticket) {
-        for (Locker locker : lockers) {
-            Bag checkoutBag = locker.checkOut(ticket);
-            if (checkoutBag != null) {
-                return checkoutBag;
-            }
-        }
-        throw new TicketInvalidException();
-    }
-
-    private Locker selectValidLocker() {
+    @Override
+    protected Locker selectValidLocker() {
         Locker selectedLocker = null;
-        for (Locker locker : lockers) {
+        for (Locker locker : getLockers()) {
             if (locker.isFull()) {
                 continue;
             }
