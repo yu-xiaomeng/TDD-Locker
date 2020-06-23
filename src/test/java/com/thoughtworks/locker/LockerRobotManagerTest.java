@@ -1,6 +1,7 @@
 package com.thoughtworks.locker;
 
 import com.thoughtworks.locker.exception.LockerFullException;
+import com.thoughtworks.locker.exception.TicketInvalidException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -145,7 +146,7 @@ public class LockerRobotManagerTest {
     }
 
     @Test
-    public void should_checkout_success_when_locker_robot_manager_given_a_valid_robot_manager_ticket() {
+    public void should_checkout_success_when_locker_robot_manager_checkout_given_a_valid_robot_manager_ticket() {
         AbstractLockerRobot robot1 = new PrimaryLockerRobot(Arrays.asList(new Locker(2)));
         LockerRobotManager manager = new LockerRobotManager(Arrays.asList(robot1), Arrays.asList(new Locker(1)));
         Bag bag = new Bag();
@@ -155,4 +156,11 @@ public class LockerRobotManagerTest {
         Assert.assertEquals(bag, manager.checkOut(ticket));
     }
 
+    @Test(expected = TicketInvalidException.class)
+    public void should_checkout_fail_when_locker_robot_manager_checkout_given_an_invalid_robot_manager_ticket() {
+        AbstractLockerRobot robot1 = new PrimaryLockerRobot(Arrays.asList(new Locker(2)));
+        LockerRobotManager manager = new LockerRobotManager(Arrays.asList(robot1), Arrays.asList(new Locker(1)));
+
+        manager.checkOut(new LockerRobotManagerTicket(new Ticket()));
+    }
 }
