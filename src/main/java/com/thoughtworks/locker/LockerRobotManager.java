@@ -16,8 +16,24 @@ public class LockerRobotManager {
     }
 
     public LockerRobotManagerTicket checkIn(Bag bag) {
-        Locker locker = this.lockers.stream().filter(l -> !l.isFull()).findFirst().orElseThrow(LockerFullException::new);
+        Locker locker = getRobotLocker();
+        if (locker == null && !isNullOrEmpty(lockers)) {
+            locker = this.lockers.stream().filter(l -> !l.isFull()).findFirst().orElseThrow(LockerFullException::new);
+        }
         return new LockerRobotManagerTicket(locker.checkIn(bag));
+    }
+
+    private Locker getRobotLocker() {
+        if (isNullOrEmpty(this.robots)) {
+            return null;
+        }
+        for (AbstractLockerRobot robot : robots) {
+            Locker locker = robot.selectValidLocker();
+            if (locker != null) {
+                return locker;
+            }
+        }
+        return null;
     }
 
     private void checkParamsValid(List<AbstractLockerRobot> robots, List<Locker> lockers) {
