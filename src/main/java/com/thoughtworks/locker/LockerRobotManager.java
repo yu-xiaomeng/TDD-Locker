@@ -20,6 +20,9 @@ public class LockerRobotManager {
         if (locker == null && !isNullOrEmpty(lockers)) {
             locker = this.lockers.stream().filter(l -> !l.isFull()).findFirst().orElseThrow(LockerFullException::new);
         }
+        if (locker == null) {
+            throw new LockerFullException();
+        }
         return new LockerRobotManagerTicket(locker.checkIn(bag));
     }
 
