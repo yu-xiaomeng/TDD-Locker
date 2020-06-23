@@ -26,3 +26,18 @@
 - Given smart robot管理2个Locker，一张无效票据 When smart robot取包 Then 取包失败，提示无效票据
 - Given smart robot、primary robot同时管理2个locker，一张primary robot存包有效票据 Then smart robot取包 Then 取包成功
 - Given smart robot、primary robot同时管理2个Locker，一张smart robot存包有效票据 Then primary robot取包 Then 取包成功
+
+## Locker Robot Manager
+- Given locker robot manager管理两个robot（robot1、robot2），robot1管理（locker1、locker2），robot2管理（locker2、locker3） when locker robot管理locker1 then 报错
+- Given locker robot manager没有管理robot，管理两个locker，两个locker都有容量 when locker robot manager存包 then 成功存入locker1，返回ticket
+- Given locker robot manager没有管理robot，管理两个locker（locker1、locker2），locker2已满，locker1有容量 when locker robot manager存包 then 成功存入locker1，返回ticket
+- Given locker robot manager没有管理robot，管理两个locker（locker1、locker2），locker1已满，locker2有容量 when locker robot manager存包 then 成功存入locker2，返回ticket
+- Given locker robot manager没有管理robot，管理两个locker，两个locker已满 when locker robot manager存包 then 存包失败，提示储物柜已满
+- Given locker robot manager管理两个robot，两个robot管理locker都有容量 when locker robot manager存包 then 存包成功，返回ticket
+- Given locker robot manager管理两个robot（robot1、robot2），robot1有容量，robot2已满 when locker robot manager存包 then 成功存入robot1，返回ticket
+- Given locker robot manager管理两个robot（robot1、robot2），robot2有容量，robot1已满 when locker robot manager存包 then 成功存入robot2，返回ticket
+- Given locker robot manager管理两个robot（robot1、robot2），两个robot都满 when locker robot manager存包 then 存包失败，提示储物柜已满
+- Given locker robot manager管理两个机器人（robot1、robot2），一个locker，两个robot已满，locker有容量 when locker robot manager存包 then 成功存入locker，返回ticket
+- Given locker robot manager管理两个机器人（robot1、robot2），一个locker，两个robot已满，locker已满 when locker robot manager存包 then 存包失败，提示储物柜已满
+- Given locker robot manager管理两个机器人，一个locker，一张有效locker robot manager票据 when locker robot manager取包 then 取包成功
+- Given locker robot manager管理两个机器人，一个locker，一张无效locker robot manager票据 when locker robot manager取包 then 取包失败，提示无效票据
