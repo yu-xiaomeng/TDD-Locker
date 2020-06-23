@@ -130,4 +130,18 @@ public class LockerRobotManagerTest {
         Assert.assertEquals(bag, locker.checkOut(ticket.getTicket()));
     }
 
+    @Test(expected = LockerFullException.class)
+    public void should_check_in_locker_when_lockerManager_check_in_given_locker_robot_manager_have_to_robots_one_locker_and_two_robots_and_locker_are_full() {
+        AbstractLockerRobot robot1 = new PrimaryLockerRobot(Arrays.asList(new Locker(1)));
+        AbstractLockerRobot robot2 = new SmartLockerRobot(Arrays.asList(new Locker(1)));
+        Locker locker = new Locker(1);
+        LockerRobotManager manager = new LockerRobotManager(Arrays.asList(robot1, robot2), Arrays.asList(locker));
+        locker.checkIn(new Bag());
+        robot1.checkIn(new Bag());
+        robot2.checkIn(new Bag());
+        Bag bag = new Bag();
+
+        manager.checkIn(bag);
+    }
+
 }
