@@ -2,7 +2,6 @@ package com.thoughtworks.locker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class LockerRobotManager {
     private final List<AbstractLockerRobot> robots;
@@ -12,6 +11,10 @@ public class LockerRobotManager {
         checkParamsValid(robots, lockers);
         this.robots = robots;
         this.lockers = lockers;
+    }
+
+    public LockerRobotManagerTicket checkIn(Bag bag) {
+        return new LockerRobotManagerTicket(this.lockers.stream().filter(l -> !l.isFull()).findFirst().get().checkIn(bag));
     }
 
     private void checkParamsValid(List<AbstractLockerRobot> robots, List<Locker> lockers) {
