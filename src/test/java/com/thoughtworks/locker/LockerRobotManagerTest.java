@@ -1,5 +1,6 @@
 package com.thoughtworks.locker;
 
+import com.thoughtworks.locker.exception.LockerFullException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -50,5 +51,17 @@ public class LockerRobotManagerTest {
         LockerRobotManagerTicket ticket = manager.checkIn(bag);
 
         Assert.assertEquals(bag, locker2.checkOut(ticket.getTicket()));
+    }
+
+    @Test(expected = LockerFullException.class)
+    public void should_check_in_fail_when_lockerRobotManager_check_in_given_locker_robot_manager_have_no_robots_and_have_two_locker_and_locker1_locker2_is_full() {
+        Locker locker1 = new Locker(1);
+        Locker locker2 = new Locker(1);
+        LockerRobotManager manager = new LockerRobotManager(null, Arrays.asList(locker1, locker2));
+        locker1.checkIn(new Bag());
+        locker2.checkIn(new Bag());
+        Bag bag = new Bag();
+
+        manager.checkIn(bag);
     }
 }

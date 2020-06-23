@@ -1,5 +1,7 @@
 package com.thoughtworks.locker;
 
+import com.thoughtworks.locker.exception.LockerFullException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,8 @@ public class LockerRobotManager {
     }
 
     public LockerRobotManagerTicket checkIn(Bag bag) {
-        return new LockerRobotManagerTicket(this.lockers.stream().filter(l -> !l.isFull()).findFirst().get().checkIn(bag));
+        Locker locker = this.lockers.stream().filter(l -> !l.isFull()).findFirst().orElseThrow(LockerFullException::new);
+        return new LockerRobotManagerTicket(locker.checkIn(bag));
     }
 
     private void checkParamsValid(List<AbstractLockerRobot> robots, List<Locker> lockers) {
