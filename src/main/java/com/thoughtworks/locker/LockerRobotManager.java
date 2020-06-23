@@ -1,18 +1,30 @@
 package com.thoughtworks.locker;
 
 import com.thoughtworks.locker.exception.LockerFullException;
+import com.thoughtworks.locker.exception.TicketInvalidException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LockerRobotManager {
     private final List<AbstractLockerRobot> robots;
     private final List<Locker> lockers;
+    private final List<Locker> allLockers;
 
     public LockerRobotManager(List<AbstractLockerRobot> robots, List<Locker> lockers) {
         checkParamsValid(robots, lockers);
         this.robots = robots;
         this.lockers = lockers;
+        this.allLockers = new ArrayList<>();
+        if (!isNullOrEmpty(robots)) {
+            for (AbstractLockerRobot robot : robots) {
+                this.allLockers.addAll(robot.getLockers());
+            }
+        }
+        if (!isNullOrEmpty(lockers)) {
+            this.allLockers.addAll(lockers);
+        }
     }
 
     public LockerRobotManagerTicket checkIn(Bag bag) {
@@ -24,6 +36,11 @@ public class LockerRobotManager {
             throw new LockerFullException();
         }
         return new LockerRobotManagerTicket(locker.checkIn(bag));
+    }
+
+    public Bag checkOut(LockerRobotManagerTicket ticket) {
+        return this.allLockers.stream().map(l -> l.checkOut(ticket.getTicket()))
+                .filter(Objects::nonNull).findFirst().orElseThrow(TicketInvalidException::new);
     }
 
     private Locker getRobotLocker() {
