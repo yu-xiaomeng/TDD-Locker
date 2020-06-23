@@ -28,14 +28,13 @@ public class LockerRobotManager {
     }
 
     public LockerRobotManagerTicket checkIn(Bag bag) {
-        Locker locker = this.allLockers.stream().filter(l -> !l.isFull()).findFirst().orElseThrow(LockerFullException::new);
-//        Locker locker = getRobotLocker();
-//        if (locker == null && !isNullOrEmpty(lockers)) {
-//            locker = this.lockers.stream().filter(l -> !l.isFull()).findFirst().orElseThrow(LockerFullException::new);
-//        }
-//        if (locker == null) {
-//            throw new LockerFullException();
-//        }
+        Locker locker = getRobotLocker();
+        if (locker == null && !isNullOrEmpty(lockers)) {
+            locker = this.lockers.stream().filter(l -> !l.isFull()).findFirst().orElseThrow(LockerFullException::new);
+        }
+        if (locker == null) {
+            throw new LockerFullException();
+        }
         return new LockerRobotManagerTicket(locker.checkIn(bag));
     }
 
