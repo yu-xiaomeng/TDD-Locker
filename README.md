@@ -28,7 +28,7 @@
 - Given smart robot、primary robot同时管理2个Locker，一张smart robot存包有效票据 Then primary robot取包 Then 取包成功
 
 ## Locker Robot Manager
-- Given locker robot manager管理两个robot（robot1、robot2），robot1管理（locker1、locker2），robot2管理（locker2、locker3） when locker robot管理locker1 then 报错
+- Given locker robot manager管理两个robot（robot1、robot2），robot1管理（locker1、locker2），robot2管理（locker2、locker3） when locker robot manager管理locker1 then 报错
 - Given locker robot manager没有管理robot，管理两个locker，两个locker都有容量 when locker robot manager存包 then 成功存入locker1，返回ticket
 - Given locker robot manager没有管理robot，管理两个locker（locker1、locker2），locker2已满，locker1有容量 when locker robot manager存包 then 成功存入locker1，返回ticket
 - Given locker robot manager没有管理robot，管理两个locker（locker1、locker2），locker1已满，locker2有容量 when locker robot manager存包 then 成功存入locker2，返回ticket
