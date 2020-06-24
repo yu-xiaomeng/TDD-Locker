@@ -41,3 +41,5 @@
 - Given locker robot manager管理两个机器人（robot1、robot2），一个locker，两个robot已满，locker已满 when locker robot manager存包 then 存包失败，提示储物柜已满
 - Given locker robot manager管理两个机器人，一个locker，一张有效locker robot manager票据 when locker robot manager取包 then 取包成功
 - Given locker robot manager管理两个机器人，一个locker，一张无效locker robot manager票据 when locker robot manager取包 then 取包失败，提示无效票据
+- Given locker robot manager没有管理机器人，管理一个locker，一张有效locker robot manager票据 when locker robot manager取包 then 取包成功
+- Given locker robot manager没有管理机器人，管理一个locker，一张无效locker robot manager票据 when locker robot manager取包 then 取包失败，提示无效票据

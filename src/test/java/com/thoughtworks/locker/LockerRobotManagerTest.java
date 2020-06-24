@@ -164,7 +164,6 @@ public class LockerRobotManagerTest {
         manager.checkOut(new LockerRobotManagerTicket(new Ticket()));
     }
 
-
     @Test
     public void should_checkout_success_when_locker_robot_manager_checkout_given_manager_only_manage_a_locker_and_a_valid_robot_manager_ticket() {
         LockerRobotManager manager = new LockerRobotManager(null, Arrays.asList(new Locker(1)));
@@ -173,6 +172,13 @@ public class LockerRobotManagerTest {
         LockerRobotManagerTicket ticket = manager.checkIn(bag);
 
         Assert.assertEquals(bag, manager.checkOut(ticket));
+    }
+
+    @Test(expected = TicketInvalidException.class)
+    public void should_checkout_fail_when_locker_robot_manager_checkout_given_manager_only_manage_a_locker_and_an_invalid_robot_manager_ticket() {
+        LockerRobotManager manager = new LockerRobotManager(null, Arrays.asList(new Locker(1)));
+
+        manager.checkOut(new LockerRobotManagerTicket(new Ticket()));
     }
 
 }
