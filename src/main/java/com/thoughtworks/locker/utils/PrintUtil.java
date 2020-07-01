@@ -21,6 +21,6 @@ public final class PrintUtil {
 
     public static <T extends ReportPrint> String printReports(List<T> reportPrints, String tabs) {
         final String tabStr = tabs == null ? "\t" : "\t" + tabs;
-        return String.join("\r\n", reportPrints.stream().map(p -> p.print(tabStr)).collect(Collectors.toList()));
+        return String.join("\n\n", reportPrints.stream().map(p -> p.print(tabStr)).collect(Collectors.toList()));
     }
 }
