@@ -43,3 +43,32 @@
 - Given locker robot manager管理两个机器人，一个locker，一张无效locker robot manager票据 when locker robot manager取包 then 取包失败，提示无效票据
 - Given locker robot manager没有管理机器人，管理一个locker，一张有效locker robot manager票据 when locker robot manager取包 then 取包成功
 - Given locker robot manager没有管理机器人，管理一个locker，一张无效locker robot manager票据 when locker robot manager取包 then 取包失败，提示无效票据
+
+##LockerRobotDirectorTest
+- Given director管理一个robot manager，robot manager管理一个locker，locker总容量为10，存储了2个包<br>
+  when director 输出报表<br>
+  then 报表为<br>
+  M 8 10<br> 
+  &nbsp;&nbsp;&nbsp;&nbsp;L 8 10<br>
+- Given director管理一个robot manager，robot manager管理一个robot，robot管理一个locker，robot总容量5，已存入2个包<br>
+  when director输出报表<br>
+  Then 成功输出<br>
+  M 3 5<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;R 3 5<br> 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L 3 5<br>
+- Given director管理一个robot manager，robot manager管理一个robot和一个locker， robot管理一个locker，robot管理locker总容量5，已存入2个包；locker容量为8，已存入3个包<br>
+  when director输出报表<br>
+  Then 报表为<br>
+  M 8 13<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;L 5 8<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;R 3 5<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L 3 5<br>
+- Given director管理两个robot manager（M1、M2），M1、M2都管理一个robot，robot都管理一个locker，locker容量都为5，都存入了2个包<br>
+  when director 输出报表<br>
+  then 报表为<br>
+  M 3 5<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;R 3 5<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L 3 5<br>
+  M 3 5<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;R 3 5<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L 3 5<br>
