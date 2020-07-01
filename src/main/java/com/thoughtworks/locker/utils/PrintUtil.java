@@ -19,7 +19,8 @@ public final class PrintUtil {
         return builder.toString().trim();
     }
 
-    public static <T extends ReportPrint> String printReports(List<T> reportPrints) {
-        return String.join("\r\n", reportPrints.stream().map(ReportPrint::print).collect(Collectors.toList()));
+    public static <T extends ReportPrint> String printReports(List<T> reportPrints, String tabs) {
+        final String tabStr = tabs == null ? "\t" : "\t" + tabs;
+        return String.join("\r\n", reportPrints.stream().map(p -> p.print(tabStr)).collect(Collectors.toList()));
     }
 }

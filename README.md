@@ -50,7 +50,7 @@
   then 报表为<br>
   M 8 10<br> 
   &nbsp;&nbsp;&nbsp;&nbsp;L 8 10<br>
-- Given director管理一个robot manager，robot manager管理一个robot，robot管理一个locker，robot总容量5，已存入2个包<br>
+- Given director管理一个robot manager，robot manager管理一个robot，robot管理一个locker，locker总容量5，已存入2个包<br>
   when director输出报表<br>
   Then 成功输出<br>
   M 3 5<br>

@@ -1,5 +1,5 @@
 package com.thoughtworks.locker;
 
 public interface ReportPrint {
-    String print();
+    String print(String tabs);
 }

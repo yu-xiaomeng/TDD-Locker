@@ -5,7 +5,7 @@ import com.thoughtworks.locker.utils.PrintUtil;
 
 import java.util.List;
 
-public class LockerRobotDirector implements ReportPrint {
+public class LockerRobotDirector {
     private final List<LockerRobotManager> lockerRobotManagers;
 
     public LockerRobotDirector(List<LockerRobotManager> lockerRobotManagers) {
@@ -13,8 +13,7 @@ public class LockerRobotDirector implements ReportPrint {
         this.lockerRobotManagers = lockerRobotManagers;
     }
 
-    @Override
     public String print() {
-        return PrintUtil.printReports(lockerRobotManagers);
+        return PrintUtil.printReports(lockerRobotManagers, null);
     }
 }

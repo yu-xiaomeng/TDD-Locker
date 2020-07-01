@@ -54,11 +54,17 @@ public class LockerRobotManager implements ReportPrint {
     }
 
     @Override
-    public String print() {
+    public String print(String tabs) {
         StringBuilder builder = new StringBuilder();
         builder.append(PrintUtil.print("M", getAvailableCapacity(), getCapacity()));
-        builder.append("\n\t");
-        builder.append(PrintUtil.printReports(lockers));
+        if (!CollectionUtil.isNullOrEmpty(lockers)) {
+            builder.append("\n");
+            builder.append(PrintUtil.printReports(lockers, null));
+        }
+        if (!CollectionUtil.isNullOrEmpty(robots)) {
+            builder.append("\n");
+            builder.append(PrintUtil.printReports(robots, null));
+        }
         return builder.toString();
     }
 

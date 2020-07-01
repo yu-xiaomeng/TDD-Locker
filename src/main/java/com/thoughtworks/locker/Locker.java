@@ -49,7 +49,7 @@ public class Locker implements ReportPrint {
     }
 
     @Override
-    public String print() {
-        return PrintUtil.print("L", getAvailableCapacity(), getCapacity());
+    public String print(String tabs) {
+        return (tabs == null ? "" : tabs) + PrintUtil.print("L", getAvailableCapacity(), getCapacity());
     }
 }
